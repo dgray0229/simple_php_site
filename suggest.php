@@ -13,7 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  echo "<pre>";
+
+  if($_POST["address"] != "") {
+    echo "Bad form input";
+    exit;
+  }
+
   $email_body = "";
   $email_body .= "Name: " . $name . "\n";
   $email_body .= "Email: " . $email . "\n";
@@ -24,15 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  if($_POST["address"] != "") {
-    echo "Bad form input";
+  //PHPMailer
+  $mail->setFrom($email, $name);
+  $mail->addAddress('devin.gray92@gmail.com', 'Devin Gray');     // Add a recipient
+
+  $mail->isHTML(false);                                  // Set email format to HTML
+
+  $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
+  $mail->Body    = $email_body;
+
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
     exit;
-  }
-
-  echo $email_body;
-  echo "</pre>";
-
-  //To Do: Send email
+}
   header('location:suggest.php?status=thanks');
 }
 
@@ -63,8 +73,8 @@ include 'inc/header.php';
         </tr>
         <tr style="display:none">
           <th><label for="address">Email: </label></th>
-          <td><input type="text" name="address" id="address" placeholder="address" /></td>
-          <p>Please leave this field blank!</p>
+          <td><input type="text" name="address" id="address" placeholder="address" />
+          <p>Please leave this field blank!</p></td>
         </tr>
         <tr>
           <th><label for="name">Suggest Item Details: </label></th>
