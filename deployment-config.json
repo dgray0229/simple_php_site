@@ -1,0 +1,9 @@
+{
+    "type": "sftp",
+    "host": "66.147.247.142",
+    "username": "virtudl8",
+    "password": "MichaelRedd32!",
+    "port": 22,
+    "remotePath": "/home1/virtudl8/public_html/simplephpsite",
+    "uploadOnSave": false
+}
