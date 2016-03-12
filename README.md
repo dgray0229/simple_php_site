@@ -1,8 +1,5 @@
 # Simple PHP Site
-<<<<<<< HEAD
 
-=======
->>>>>>> dc6b4ebb9b37f43b89e3dd6d3a14abc8298b03ee
 > A simple php site with a catalog of items and a form that sends an email.
 
 An example of this page can be found here:
@@ -10,11 +7,7 @@ An example of this page can be found here:
 
 This is a basic PHP site that I have developed as a [Team Treehouse](http://teamtreehouse.com) project.
 
-<<<<<<< HEAD
-**Details**
-=======
-**Details** 
->>>>>>> dc6b4ebb9b37f43b89e3dd6d3a14abc8298b03ee
+## Details
 
 This is an example site of a personal Media Library with a catalog of books, movies, and music. We categorize this list based on what page we're on. Our home page will display a random mix of titles, while the books, movies, and music page will display those respective categories respectively.
 

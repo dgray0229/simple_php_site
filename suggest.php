@@ -64,17 +64,17 @@ include 'inc/header.php';
     <form method="post" action="suggest.php">
       <table>
         <tr>
-          <th><label for="name">Name: </label></th>
+          <th><label for="name">Name</label></th>
           <td><input type="text" name="name" id="name" placeholder="Name" /></td>
         </tr>
         <tr>
-          <th><label for="email">Email: </label></th>
+          <th><label for="email">Email</label></th>
           <td><input type="text" name="email" id="email" placeholder="Email" /></td>
         </tr>
         </tr>
         <tr>
           <th><label for="category">Category</label></th>
-          <td><select type="category" name="category">
+          <td><select id="category" name="category">
             <option value="">Select One</option>
             <option value="Books">Book</option>
             <option value="Movies">Movie</option>
@@ -83,25 +83,25 @@ include 'inc/header.php';
         </tr>
         <tr>
           <th><label for="title">Title</label></th>
-          <td><input type="title" name="title" id="title" placeholder="title" /></td>
+          <td><input id="title" type="title" name="title" placeholder="Title" /></td>
         </tr>
         <tr>
           <th><label for="format">Format</label></th>
           <td><select id="format" name="format">
               <option value="">Select One</option>
-              <optgroup label="Books">
+              <optgroup id="books" label="Books">
                   <option value="Audio">Audio</option>
                   <option value="Ebook">Ebook</option>
                   <option value="Hardback">Hardback</option>
                   <option value="Paperback">Paperback</option>
               </optgroup>
-              <optgroup label="Movies">
+              <optgroup id="movies" label="Movies">
                   <option value="Blu-ray">Blu-ray</option>
                   <option value="DVD">DVD</option>
                   <option value="Streaming">Streaming</option>
                   <option value="VHS">VHS</option>
               </optgroup>
-              <optgroup label="Music">
+              <optgroup id="music" label="Music">
                   <option value="Cassette">Cassette</option>
                   <option value="CD">CD</option>
                   <option value="MP3">MP3</option>
@@ -114,9 +114,9 @@ include 'inc/header.php';
               <label for="genre">Genre</label>
           </th>
           <td>
-              <select name="genre" id="genre">
+              <select id="genre" name="genre">
                   <option value="">Select One</option>
-                  <optgroup label="Books">
+                  <optgroup id="books" label="Books">
                       <option value="Action">Action</option>
                       <option value="Adventure">Adventure</option>
                       <option value="Comedy">Comedy</option>
@@ -137,7 +137,7 @@ include 'inc/header.php';
                       <option value="Thriller">Thriller</option>
                       <option value="Urban">Urban</option>
                   </optgroup>
-                  <optgroup label="Movies">
+                  <optgroup id="movies" label="Movies">
                       <option value="Action">Action</option>
                       <option value="Adventure">Adventure</option>
                       <option value="Animation">Animation</option>
@@ -160,7 +160,7 @@ include 'inc/header.php';
                       <option value="War">War</option>
                       <option value="Western">Western</option>
                   </optgroup>
-                  <optgroup label="Music">
+                  <optgroup id="music" label="Music">
                       <option value="Alternative">Alternative</option>
                       <option value="Blues">Blues</option>
                       <option value="Classical">Classical</option>
@@ -184,17 +184,17 @@ include 'inc/header.php';
           </td>
       </tr>
       <tr>
-        <th><label for="email">Year: </label></th>
-        <td><input type="text" name="year" id="year" placeholder="YYYY" /></td>
+        <th><label for="email">Year</label></th>
+        <td><input id="year" type="text" name="year" placeholder="YYYY" /></td>
       </tr>
       <tr style="display:none">
-          <th><label for="address">Address: </label></th>
-          <td><input type="text" name="address" id="address" placeholder="address" />
+          <th><label for="address">Address</label></th>
+          <td><input id="address" type="text" name="address"  placeholder="address" />
           <p>Please leave this field blank!</p></td>
         </tr>
         <tr>
           <th><label for="name">Additional Details: </label></th>
-          <td><textarea name="details" id="details"></textarea></td>
+          <td><textarea id="details" name="details"></textarea></td>
         </tr>
       </table>
       <input type="submit" value="Send" />
