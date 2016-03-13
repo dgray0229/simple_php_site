@@ -8,7 +8,6 @@ function toggleFields() {
   $('#format optgroup').hide();
   $('#genre optgroup').hide();
 
-
   switch (true) {
     case ($("#category").val() == "Books"):
       $('#format optgroup#books').show();

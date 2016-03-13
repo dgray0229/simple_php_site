@@ -2,58 +2,59 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
     $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
-    $category = trim(filter_input(INPUT_POST, 'category', FILTER_SANITIZE_EMAIL));
-    $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_EMAIL));
-    $format = trim(filter_input(INPUT_POST, 'format', FILTER_SANITIZE_EMAIL));
-    $genre = trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_EMAIL));
-    $year = trim(filter_input(INPUT_POST, 'year', FILTER_SANITIZE_EMAIL));
+    $category = trim(filter_input(INPUT_POST, 'category', FILTER_SANITIZE_STRING));
+    $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+    $format = trim(filter_input(INPUT_POST, 'format', FILTER_SANITIZE_STRING));
+    $genre = trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
+    $year = trim(filter_input(INPUT_POST, 'year', FILTER_SANITIZE_STRING));
     $details = trim(filter_input(INPUT_POST, 'details', FILTER_SANITIZE_SPECIAL_CHARS));
-
-    require 'inc/phpmailer/class.phpmailer.php';
-
-    $mail = new PHPMailer();
-
-    if (!isset($error_message)) {
-
-    }
-
-    if (!$mail->validateAddress($email)) {
-        $error_message = 'Invalid Email Address';
-    }
-
-    if ($_POST['address'] != '') {
-        $error_message = 'Bad form input';
-    }
-
-    $email_body = '';
-    $email_body .= 'Name: '.$name."\n";
-    $email_body .= 'Email: '.$email."\n";
-    $email_body .= 'Suggested Item: '."\n";
-    $email_body .= 'Title: '.$title."\n";
-    $email_body .= 'Format: '.$format."\n";
-    $email_body .= 'Genre: '.$genre."\n";
-    $email_body .= 'Year: '.$year."\n";
-    $email_body .= 'Details: '.$details."\n";
 
     if ($name == '' || $email == '' || $title == '') {
         $error_message = 'Please fill in the required fields: Name, Email, Category and Title';
     }
 
-  //PHPMailer
-  $mail->setFrom($email, $name);
-    $mail->addAddress('devin.gray92@gmail.com', 'Devin Gray');     // Add a recipient
-
-  $mail->isHTML(false);                                  // Set email format to HTML
-
-  $mail->Subject = 'Personal Media Library Suggestion from '.$name;
-    $mail->Body = $email_body;
-
-    if (!$mail->send()) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: '.$mail->ErrorInfo;
-        exit;
+    if (!isset($error_message) && $_POST['address'] != '') {
+        $error_message = 'Bad form input';
     }
-    header('location:suggest.php?status=thanks');
+
+    require 'inc/phpmailer/class.phpmailer.php';
+
+    $mail = new PHPMailer();
+
+    if (!isset($error_message) && !$mail->validateAddress($email)) {
+        $error_message = 'Invalid Email Address';
+    }
+
+    if (!isset($error_message)) {
+
+        $email_body = '';
+        $email_body .= 'Name: '.$name."\n";
+        $email_body .= 'Email: '.$email."\n";
+        $email_body .= 'Suggested Item: '."\n";
+        $email_body .= 'Title: '.$title."\n";
+        $email_body .= 'Format: '.$format."\n";
+        $email_body .= 'Genre: '.$genre."\n";
+        $email_body .= 'Year: '.$year."\n";
+        $email_body .= 'Details: '.$details."\n";
+
+    //PHPMailer
+    $mail->setFrom($email, $name);
+        $mail->addAddress('devin.gray92@gmail.com', 'Devin Gray');     // Add a recipient
+
+    $mail->isHTML(false);                                  // Set email format to HTML
+
+    $mail->Subject = 'Personal Media Library Suggestion from '.$name;
+        $mail->Body = $email_body;
+
+        if ($mail->send()) {
+            header('location:suggest.php?status=thanks');
+            exit;
+        }
+
+        $error_message = 'Message could not be sent.';
+        $error_message .= 'Mailer Error: '.$mail->ErrorInfo;
+        
+    }
 }
 
 $pageTitle = 'Suggest a Media Item';
@@ -71,7 +72,13 @@ include 'inc/header.php';
 } else {
     ?>
 
-    <p>If you think there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>
+    <?php
+      if (isset($error_message)) {
+        echo "<p class='message'>".$error_message."</p>";
+      } else {
+        echo "<p>If you think there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>";
+      }
+    ?>
     <form method="post" action="suggest.php">
       <table>
         <tr>
@@ -214,6 +221,7 @@ include 'inc/header.php';
       Fields marked with an astrisk (*) are required.
     </p>
     <?php
+
 } ?>
   </div>
 </div>
