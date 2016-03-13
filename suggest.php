@@ -2,30 +2,41 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
     $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    $category = trim(filter_input(INPUT_POST, 'category', FILTER_SANITIZE_EMAIL));
+    $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_EMAIL));
+    $format = trim(filter_input(INPUT_POST, 'format', FILTER_SANITIZE_EMAIL));
+    $genre = trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_EMAIL));
+    $year = trim(filter_input(INPUT_POST, 'year', FILTER_SANITIZE_EMAIL));
     $details = trim(filter_input(INPUT_POST, 'details', FILTER_SANITIZE_SPECIAL_CHARS));
 
     require 'inc/phpmailer/class.phpmailer.php';
 
     $mail = new PHPMailer();
 
+    if (!isset($error_message)) {
+
+    }
+
     if (!$mail->validateAddress($email)) {
-        echo 'Invalid Email Address';
-        exit;
+        $error_message = 'Invalid Email Address';
     }
 
     if ($_POST['address'] != '') {
-        echo 'Bad form input';
-        exit;
+        $error_message = 'Bad form input';
     }
 
     $email_body = '';
     $email_body .= 'Name: '.$name."\n";
     $email_body .= 'Email: '.$email."\n";
+    $email_body .= 'Suggested Item: '."\n";
+    $email_body .= 'Title: '.$title."\n";
+    $email_body .= 'Format: '.$format."\n";
+    $email_body .= 'Genre: '.$genre."\n";
+    $email_body .= 'Year: '.$year."\n";
     $email_body .= 'Details: '.$details."\n";
 
-    if ($name == '' || $email == '' || $details == '') {
-        echo 'Please fill in the required fields: Name, Email, and Details';
-        exit;
+    if ($name == '' || $email == '' || $title == '') {
+        $error_message = 'Please fill in the required fields: Name, Email, Category and Title';
     }
 
   //PHPMailer
@@ -60,16 +71,16 @@ include 'inc/header.php';
 } else {
     ?>
 
-    <p>If youthink there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>
+    <p>If you think there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>
     <form method="post" action="suggest.php">
       <table>
         <tr>
-          <th><label for="name">Name</label></th>
-          <td><input type="text" name="name" id="name" placeholder="Name" /></td>
+          <th><label for="name">Name*</label></th>
+          <td><input type="text" name="name" id="name" placeholder="Name" required/></td>
         </tr>
         <tr>
-          <th><label for="email">Email</label></th>
-          <td><input type="text" name="email" id="email" placeholder="Email" /></td>
+          <th><label for="email">Email*</label></th>
+          <td><input type="text" name="email" id="email" placeholder="Email" required/></td>
         </tr>
         </tr>
         <tr>
@@ -82,8 +93,8 @@ include 'inc/header.php';
           </select></td>
         </tr>
         <tr>
-          <th><label for="title">Title</label></th>
-          <td><input id="title" type="title" name="title" placeholder="Title" /></td>
+          <th><label for="title">Title*</label></th>
+          <td><input id="title" type="title" name="title" placeholder="Title" required/></td>
         </tr>
         <tr>
           <th><label for="format">Format</label></th>
@@ -199,6 +210,9 @@ include 'inc/header.php';
       </table>
       <input type="submit" value="Send" />
     </form>
+    <p>
+      Fields marked with an astrisk (*) are required.
+    </p>
     <?php
 } ?>
   </div>
