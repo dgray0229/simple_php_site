@@ -3,7 +3,7 @@
 > A simple php site with a catalog of items and a form that sends an email.
 
 An example of this page can be found here:
-[Simple PHP Site](http://simplephpsite.devingray.me/)
+[Simple PHP Site](http://simplephpsite.devingrayllc.com/)
 
 This is a basic PHP site that I have developed as a [Team Treehouse](http://teamtreehouse.com) project.
 
